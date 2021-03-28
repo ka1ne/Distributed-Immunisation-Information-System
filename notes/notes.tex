@@ -1,10 +1,11 @@
 \documentclass{article}
 
 \usepackage[
-    backend=biber,
     style=ieee
     ]{biblatex}
-\addbibresource{notes.bib}
+\addbibresource{BaaS-analysis.bib}
+
+\usepackage{hyperref}
 
 \title{Distributed Immunisation Information System}
 \author{Kaine Bent}
@@ -20,12 +21,24 @@
 \end{abstract}
 
 \begin{flushleft}
+
+\section{Framework selection}
+An important decision, which dictates the system requirements. Hyperledger fabric is ... Using their MSPs is different to things like this \href{'https://www.hyperledger.org/blog/2020/04/21/trustid-a-new-approach-to-fabric-user-identity-management'}{TrustID: A New Approach to Fabric User Identity Management} how? Why are we not customising and instead going with fabric's defaut implementation, maybe because it fits our use case better? It makes sense as the orginisations using the system are governed already by their heath body, for UK it's MAYBE Department of Health & Social Care - look this up! See if there's a general term for lead health body or whatever
+
+Fabric has all the identity functionality built in, Indy + Aries would be more flexible but does that matter with an permissioned network? Fabric MSPs etc vs DIDs? Or does it use DIDs? \href{'https://www.w3.org/TR/did-core/'}{w3 DIDs}
+
 \section{benefits}
 [Covid-19: Vaccines and vaccine passports being sold on darknet] - this system would negate these spoofed vaccination records as all data will be on the system and if not it's illegitimate.
 \linebreak[3]
 
-\section{BaaS decision}
-Comparing Blockchain-as-a-Service platforms, to identify which tool is most suitable for delpoying the proposed Distributed Immunisation Information System.\linebreak[1]
+\section{Essential considerations}
+FHIR - standards for sharing healthcare information
+
+\section{Immunisation verification app}
+smarthealth.cards by Vaccination Credential Initiative (VCI) - smart card framework
+
+\section{BaaS comparison}
+Comparing Blockchain-as-a-Service platforms, to identify which tool is most suitable for delpoying the proposed Distributed Immunisation Information System built with Hyperledger Fabric.\linebreak[1]
 
 Beginning, I was aware of two options: Azure and IBM.\linebreak[1]
 
@@ -33,6 +46,11 @@ Reading \cite{onik_performance_2019}.\linebreak[1]
 
 [Performance Analytical Comparison of Blockchain-as-a-Service (BaaS) Platforms] says "Blockchain highly suffers from scalability problem due to its capped transaction
 latency as well as consensus approach"\linebreak[1]
+
+Azure have FHIR API, is it the only one? looks like maybe Amazon also \href{'https://azure.microsoft.com/en-gb/services/azure-api-for-fhir/?ocid=AID754288&wt.mc_id=azfr-c9-scottha%2CCFID0475'}{Azure FHIR API}
+
+
+
 
 \end{flushleft}
 
