@@ -4,6 +4,7 @@
     style=ieee
     ]{biblatex}
 \addbibresource{BaaS-analysis.bib}
+\addbibresource{chaincode-performance-analysis.bib}
 
 \usepackage{hyperref}
 
@@ -22,8 +23,11 @@
 
 \begin{flushleft}
 
+\section{Chaincode}
+Selected Go, as there are apparent benifits outlined in \cite{foschini_hyperledger_2020}
+
 \section{Framework selection}
-An important decision, which dictates the system requirements. Hyperledger fabric is ... Using their MSPs is different to things like this \href{'https://www.hyperledger.org/blog/2020/04/21/trustid-a-new-approach-to-fabric-user-identity-management'}{TrustID: A New Approach to Fabric User Identity Management} how? Why are we not customising and instead going with fabric's defaut implementation, maybe because it fits our use case better? It makes sense as the orginisations using the system are governed already by their heath body, for UK it's MAYBE Department of Health & Social Care - look this up! See if there's a general term for lead health body or whatever
+An important decision, which dictates the system requirements. Hyperledger fabric is ... Using their MSPs is different to things like this \href{'https://www.hyperledger.org/blog/2020/04/21/trustid-a-new-approach-to-fabric-user-identity-management'}{TrustID: A New Approach to Fabric User Identity Management} how? Why are we not customising and instead going with fabric's defaut implementation, maybe because it fits our use case better? It makes sense as the orginisations using the system are governed already by their heath body, for UK it's MAYBE Department of Health \& Social Care - look this up! See if there's a general term for lead health body or whatever
 
 Fabric has all the identity functionality built in, Indy + Aries would be more flexible but does that matter with an permissioned network? Fabric MSPs etc vs DIDs? Or does it use DIDs? \href{'https://www.w3.org/TR/did-core/'}{w3 DIDs}
 
