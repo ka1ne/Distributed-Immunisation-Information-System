@@ -48,13 +48,28 @@ Transaction flow "The SDK serves as a shim to package the transaction proposal i
 [Covid-19: Vaccines and vaccine passports being sold on darknet] - this system would negate these spoofed vaccination records as all data will be on the system and if not it's illegitimate.
 \linebreak[3]
 
-\chapter{Essential considerations}
+\chapter{Essential Considerations}
+
+\section{Ethical Implications}
+
+\section{Data Privacy}
+
 \section{FHIR}
 FHIR - standards for sharing healthcare information.\linebreak[1]
 
+\section{Security}
+Whilst penetration testing Hyperledger Fabric, there was found a high severity issue, which describes the potential to guess the content of a Private Data Collection.
+This is achieved using SHA256 as an oracle. To ensure this vulnerability is not available in the system, it is necessary to ensure any private data is salted before being hashed. \cite{shaw_penetration_2019}
+
+
 \section{Default application SDK}
-Go is best for chaincode but what would be the most suitable for the access applications? Java, because it's already highly used in enteprise already? **find reference for this ** Java also enables cross-platform usage, most convenient for these systems that are already up and running.
+Go is best for chaincode but what would be the most suitable for the access applications? Java, because it's already highly used in enteprise already? **find reference for this ** 
+Java also enables cross-platform usage, most convenient for these systems that are already up and running. - Node satisfies these conditions also, Node has Performance Traffic Engine in fabric-test toolset.
+Fabric Network Operator tool, from Hyperledger, also utillises the Node SDK, looking like we might just wanna use Node? Benefits to web app vs desktop? 
+Java is probs more secure ** find ref ** but web app with Node would likely be more flexible, as it can be used for the access application as any device runs Node but internet is required.
+Java is statically typed, but this is also achieved when using TypeScript with Node - this brings both SDKs to an equal playing field, in terms of maintainability.
 Orgs will be able to develop their own applications, enabled by OSS. However, considerations are in place for the best default SDK to use, as the correct choice could simplify adoption.
+
 
 \chapter{Designing a Distributed Immunisation Information System}
 zero-knowledge asset transfer vs zero-knowledge proof? 
@@ -64,7 +79,13 @@ smarthealth.cards by Vaccination Credential Initiative (VCI) - smart card framew
 
 Use an SDK to invoke chaincode that compares the provided data (hash of the transaction? - in which your immunisation record is stored) with the hash (SHA-250 probs) of the data in the ledger. If there's no match there's no verification, details?
 
-\chapter{BaaS comparison}
+\chapter{Blockchian-as-a-Service}
+
+Using Blockchain for Electronic Health Records \href{'https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8863359'} \cite{shahnaz_using_2019}
+
+
+**shortcomings are discussed here: \href{'https://ieeexplore.ieee.org/document/9284197'} \cite{brotsis_security_2020} ** . The computing power and security provided by BaaS can make up for the shortcomings aforementioned.\cite{song_research_2021}.
+
 Comparing Blockchain-as-a-Service platforms, to identify which tool is most suitable for delpoying the proposed Distributed Immunisation Information System built with Hyperledger Fabric.\linebreak[1]
 
 Beginning, I was aware of two options: Azure and IBM.\linebreak[1]
