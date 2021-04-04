@@ -23,7 +23,172 @@
 
 \begin{flushleft}
 
+% what are we proposing? A DIIS, which is current infastructure agnostic (because, it's just adding hashes of data to the blockchain, sensetive material is held off-chain by Health Authorities like now)
+% an application to access verifications of immunisations, for entering venues and what not
+% do we propose a full new way of even storing the actual information, with IPFS or something??? why should we do this, why not? check literature for people wanting upgrades to current IISs
+
+\chapter{Introduction}
+Inspired by the ideas of using blockchain to benefit society
+through decentralised applications in [5], this project seeks to
+design and develop a distributed solution to our current
+immunisation information systems. As mentioned in [6],
+current implementations of IISs, especially that in developing
+countries, are lacking in terms of technological proficiency.
+As stated in [7], IISs are centralised repositories of personally
+identifiable vaccination information for individual members of
+a served population. This project aims to produce a
+decentralised version of an IIS, using the recent conception of
+Decentralised Ledger Technology (DLT) which stems from
+the blockchain technology introduced by [8]. From research
+such as [9] and [10], we know that blockchain provides the
+required security and privacy necessary for implementing
+these types of systems. [10] states that blockchain technology
+can reform the interoperability of healthcare databases.
+The system this project proposes uses a permissioned
+blockchain, in which the health authorities of different nations
+are trusted nodes in the network. Each health authority will
+provide immunisation records of their population to the ledger
+– such data will only be accessible by the health authority that
+provided it as well as the individual the record belongs to.
+This shall be enforced by using asymmetrical cryptography. A
+private key will be required to access these records, the key
+being held by the individual and their relevant health
+authority. This enables the individual’s control over their
+immunisation records along with the ability to provide their
+private key and verify their immunisations. This, as discussed
+in [7], will simplify the processes of vaccination verification
+that may be required in pandemic scenarios, registering for
+school, starting with a new employer, or crossing international
+borders. This system would benefit bodies striving to verify
+individuals’ immunisations internationally.
+This report explores the required components of such a
+system, the professional considerations that are necessary for
+building this system such as legislation and ethical concerns,
+along with the requirements of an IIS and that of one
+implemented using blockchain.
+
+
 \chapter{Professional considerations}
+The system proposed in this project will process personal data,
+in the form of immunisation records, so necessitates
+consideration of ethical and legal requirements.
+
+\section{BCS Code of Conduct}
+This project has been aligned with the BCS Code of Conduct;
+relevant sections are as follows:
+\renewcommand{\labelenumii}{\alph{enumii}}
+ \begin{enumerate}
+   \item Public Interest
+   You shall:
+   \begin{enumerate}
+     \item have a due regard for public health, privacy,
+     security and wellbeing of others and the environment.
+     Encryption methods will be used where necessary to
+     ensure the confidentiality of information in the
+     system.
+     \item have due regard for the legitimate rights of Third
+     Parties.
+     This system will make use of asymmetric-key
+     encryption as well as hash functions to protect data,
+     including that of third parties.
+     \item promote equal access to the benefits of IT and
+     seek to promote the inclusion of all sectors in society
+     wherever opportunities arise.
+     This project proposes the system detailed be adopted
+     by nations to provide a means of access to personal
+     immunisation records, enabling ease of access for the
+     population.
+    \end{enumerate}
+   \item Professional Competence and Integrity
+   You shall:
+   \begin{enumerate}
+    \item only undertake to do work or provide a service
+    that is within your professional competence.
+    \item NOT claim any level of competence that you do
+    not possess. This project has been thoroughly considered and the
+    conclusion has been reached that it is within my
+    professional competence.
+    \item develop your professional knowledge, skills and
+    competence on a continuing basis. Maintaining
+    awareness of technological developments,
+    procedures, and standards that are relevant to your
+    field.
+    This project explores the current solutions for
+    immunisation information systems, evolving my
+    professional knowledge. This project displays an
+    awareness of technological standards and procedures necessary for a distributed IIS.
+    \item ensure that you have the knowledge and
+    understanding of Legislation and that you comply
+    with such Legislation, in carrying out your
+    professional responsibilities.
+    This project includes a section exploring the
+    legislation concerning this system. Specifically, the
+    geographic area in which this system is being
+    produced and how legislation governs the operations
+    of such a system.
+    \item respect and value alternative viewpoints and,
+    seek, accept and offer honest criticisms of work.
+    This project shall regularly be shared with my project
+    supervisor to gain alternative viewpoints and
+    criticisms, which will be implemented.
+    \item avoid injuring others, their property, reputation,
+    or employment by false or malicious or negligent
+    action or inaction.
+    The design section of this project will detail the
+    necessary security methods to maintain
+    confidentiality, integrity and authenticity in the
+    system. % todo <--------------------------------------------- YO!!!
+ \end{enumerate}
+ \end{enumerate}
+
+ \section{Legislation}
+ The General Data Protection Regulation (GDPR) is a privacy
+ and security law, passed by the European Union (EU),
+ imposes obligations onto organizations that target or collect
+ data related to EU citizens and residents.\linebreak[1]
+
+The GDPR sets out several key principles:
+\begin{enumerate}
+  \item Lawfulness, fairness and transparency
+  \item Purpose limitation
+  \item Data minimization
+  \item Accuracy
+  \item Storage limitation
+  \item Integrity and confidentiality
+  \item Accountability
+\end{enumerate}
+
+These stated principles are essential to our approach to
+processing personal data. Compliance with the principles
+established in the GDPR is fundamental to ensuring good
+practice in data protection.
+In Article 35(1) of the GDPR it states that a Data Protection
+Impact Assessment (DPIA) is required “Where a type of
+processing in particular using new technologies, and taking
+into account the nature, scope, context and purposes of the
+processing, is likely to result in a high risk to the rights and
+freedoms of natural persons, the controller shall, prior to the
+processing, carry out an assessment of the impact of the
+envisaged processing operations on the protection of personal
+data. A single assessment may address a set of similar
+processing operations that present similar high risks.”. This
+asserts that if the system being designed and developed in this
+project is implemented in the real world performing a DPIA is
+mandatory. Though, a DPIA will not be necessary for this
+undertaking.
+As the GDPR is mainly concerned with the European
+Economic Area (EEA), producing this system in the UK
+brings concerns. The UK is currently in a transition period
+until the 31st of December 2020. At the end of this transition
+period the UK will become a third country. Presently, the UK
+is seeking adequacy decisions from the European
+Commission. “The effect of an adequacy decision is that
+personal data can be sent from an EEA state to a third country
+without any further safeguard being necessary” because “The
+European Commission has the power to determine whether a
+third country has an adequate level of data protection.” [3]. If
+the adequacy decision is not secured, by the end of the
+transition period, the provisions set out in [4] will take effect.
 
 \chapter{Ethical implications}
 "Issues of concern are falsified or counterfeit vaccine certificates" are described in \cite{schlagenhauf_variants_2021}, when considering digital vaccination passports. 
@@ -70,7 +235,7 @@ Java is probs more secure ** find ref ** but web app with Node would likely be m
 Java is statically typed, but this is also achieved when using TypeScript with Node - this brings both SDKs to an equal playing field, in terms of maintainability.
 Orgs will be able to develop their own applications, enabled by OSS. However, considerations are in place for the best default SDK to use, as the correct choice could simplify adoption.
 
-
+Does Node possess an advantage in terms of ease of adoption? Can more mobile devices use Node than Java? Does it even matter which SDK? 
 \chapter{Designing a Distributed Immunisation Information System}
 zero-knowledge asset transfer vs zero-knowledge proof? 
 
