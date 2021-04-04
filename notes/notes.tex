@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 
 \usepackage[
     style=ieee
@@ -23,25 +23,48 @@
 
 \begin{flushleft}
 
-\section{Chaincode}
+\chapter{Professional considerations}
+
+\chapter{Ethical implications}
+"Issues of concern are falsified or counterfeit vaccine certificates" are described in \cite{schlagenhauf_variants_2021}, when considering digital vaccination passports. 
+Blockchain enables an immutable store of data, rendering any attempt at providing a spoofed record would be nullified due to the data the individual provides not being in the ledger.
+Hyperledger Fabric, the framework of choice to aid in production of the network, allows access to verify that private data is in fact in a ledger without revealing it. % how is this done? 'https://hyperledger-fabric.readthedocs.io/en/release-2.3/private-data/private-data.html#what-is-private-data'
+
+
+\chapter{Chaincode}
 Selected Go, as there are apparent benifits outlined in \cite{foschini_hyperledger_2020}
 
-\section{Framework selection}
+\chapter{Framework selection}
 An important decision, which dictates the system requirements. Hyperledger fabric is ... Using their MSPs is different to things like this \href{'https://www.hyperledger.org/blog/2020/04/21/trustid-a-new-approach-to-fabric-user-identity-management'}{TrustID: A New Approach to Fabric User Identity Management} how? Why are we not customising and instead going with fabric's defaut implementation, maybe because it fits our use case better? It makes sense as the orginisations using the system are governed already by their heath body, for UK it's MAYBE Department of Health \& Social Care - look this up! See if there's a general term for lead health body or whatever
 
 Fabric has all the identity functionality built in, Indy + Aries would be more flexible but does that matter with an permissioned network? Fabric MSPs etc vs DIDs? Or does it use DIDs? \href{'https://www.w3.org/TR/did-core/'}{w3 DIDs}
 
-\section{benefits}
+\section{Hyperledger Fabric}
+Transaction flow "The SDK serves as a shim to package the transaction proposal into the properly architected format (protocol buffer over gRPC) and takes the user’s cryptographic credentials to produce a unique signature for this transaction proposal." - \href{"https://hyperledger-fabric.readthedocs.io/en/latest/txflow.html'}.\linebreak[1]
+
+
+
+\chapter{benefits}
 [Covid-19: Vaccines and vaccine passports being sold on darknet] - this system would negate these spoofed vaccination records as all data will be on the system and if not it's illegitimate.
 \linebreak[3]
 
-\section{Essential considerations}
-FHIR - standards for sharing healthcare information
+\chapter{Essential considerations}
+\section{FHIR}
+FHIR - standards for sharing healthcare information.\linebreak[1]
 
-\section{Immunisation verification app}
-smarthealth.cards by Vaccination Credential Initiative (VCI) - smart card framework
+\section{Default application SDK}
+Go is best for chaincode but what would be the most suitable for the access applications? Java, because it's already highly used in enteprise already? **find reference for this ** Java also enables cross-platform usage, most convenient for these systems that are already up and running.
+Orgs will be able to develop their own applications, enabled by OSS. However, considerations are in place for the best default SDK to use, as the correct choice could simplify adoption.
 
-\section{BaaS comparison}
+\chapter{Designing a Distributed Immunisation Information System}
+zero-knowledge asset transfer vs zero-knowledge proof? 
+
+\chapter{Immunisation verification}
+smarthealth.cards by Vaccination Credential Initiative (VCI) - smart card framework.\linebreak[1]
+
+Use an SDK to invoke chaincode that compares the provided data (hash of the transaction? - in which your immunisation record is stored) with the hash (SHA-250 probs) of the data in the ledger. If there's no match there's no verification, details?
+
+\chapter{BaaS comparison}
 Comparing Blockchain-as-a-Service platforms, to identify which tool is most suitable for delpoying the proposed Distributed Immunisation Information System built with Hyperledger Fabric.\linebreak[1]
 
 Beginning, I was aware of two options: Azure and IBM.\linebreak[1]
