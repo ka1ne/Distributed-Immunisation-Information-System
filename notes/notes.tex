@@ -3,8 +3,22 @@
 \usepackage[
     style=ieee
     ]{biblatex}
+\addbibresource{bitcoin-a-peer-to-peer-electronic-cash-system.bib}
+\addbibresource{Distributed-Ledger-Technology.bib}
 \addbibresource{BaaS-analysis.bib}
 \addbibresource{chaincode-performance-analysis.bib}
+\addbibresource{A-Privacy-Preserving-Healthcare-Framework-Using-Hyperledger-Fabric.bib}
+\addbibresource{Comparison-of-Smart-Contract-Blockchains-for-Healthcare-Applications.bib}
+\addbibresource{distributed-systems-concepts-design.bib}
+\addbibresource{GDPR.bib}
+\addbibresource{On-the-Security-and-Privacy-of-Hyperledger-Fabric-Challenges-and-Open-Issues.bib}
+\addbibresource{Penetration-Testing-Technical-Report.bib}
+\addbibresource{Research-advances-on-blockchain-as-a-service-architectures-applications-and-challenges.bib}
+\addbibresource{the-byzantine-generals-problem.bib}
+\addbibresource{Using-Blockchain-for-Electronic-Health-Records.bib}
+\addbibresource{Variants-vaccines-and-vaccination-passports-Challenges-and-chances for-travel-medicine.bib}
+\addbibresource{Hyperledger_Arch_WG_Paper_1_Consensus.bib}
+\addbibresource{Design-and-Implementation-on-Hyperledger-Based-Emission-Trading-System.bib}
 
 \usepackage{hyperref}
 
@@ -27,20 +41,19 @@
 % an application to access verifications of immunisations, for entering venues and what not
 % do we propose a full new way of even storing the actual information, with IPFS or something??? why should we do this, why not? check literature for people wanting upgrades to current IISs
 
-\chapter{Introduction}
+\chapter{Introduction} % come fix refs <----------------------------------------------------------%
 Inspired by the ideas of using blockchain to benefit society
 through decentralised applications in [5], this project seeks to
-design and develop a distributed solution to our current
+design and develop a distributed solution to aid current
 immunisation information systems. As mentioned in [6],
 current implementations of IISs, especially that in developing
 countries, are lacking in terms of technological proficiency.
 As stated in [7], IISs are centralised repositories of personally
 identifiable vaccination information for individual members of
 a served population. This project aims to produce a
-decentralised version of an IIS, using the recent conception of
-Decentralised Ledger Technology (DLT) which stems from
-the blockchain technology introduced by [8]. From research
-such as [9] and [10], we know that blockchain provides the
+decentralised version of an IIS, utilising Decentralised Ledger Technology (DLT) 
+which has been highly discussed since the wide adoption of blockchain technology introduced by \cite{nakamoto_bitcoin_2019} - As discussed in \cite{sunyaev_distributed_2020}.
+From research such as [9] and [10], we know that blockchain provides the
 required security and privacy necessary for implementing
 these types of systems. [10] states that blockchain technology
 can reform the interoperability of healthcare databases.
@@ -137,7 +150,7 @@ relevant sections are as follows:
     The design section of this project will detail the
     necessary security methods to maintain
     confidentiality, integrity and authenticity in the
-    system. % todo <--------------------------------------------- YO!!!
+    system. % todo <--------------------------------------------- YO!!!!!!
  \end{enumerate}
  \end{enumerate}
 
@@ -145,7 +158,7 @@ relevant sections are as follows:
  The General Data Protection Regulation (GDPR) is a privacy
  and security law, passed by the European Union (EU),
  imposes obligations onto organizations that target or collect
- data related to EU citizens and residents.\linebreak[1]
+ data related to EU citizens and residents.\cite{noauthor_general_nodate} \linebreak[1]
 
 The GDPR sets out several key principles:
 \begin{enumerate}
@@ -190,10 +203,45 @@ third country has an adequate level of data protection.” [3]. If
 the adequacy decision is not secured, by the end of the
 transition period, the provisions set out in [4] will take effect.
 
-\chapter{Ethical implications}
+
+\chapter{Essential Considerations}
+
+\section{Ethical Implications}
+
 "Issues of concern are falsified or counterfeit vaccine certificates" are described in \cite{schlagenhauf_variants_2021}, when considering digital vaccination passports. 
 Blockchain enables an immutable store of data, rendering any attempt at providing a spoofed record would be nullified due to the data the individual provides not being in the ledger.
 Hyperledger Fabric, the framework of choice to aid in production of the network, allows access to verify that private data is in fact in a ledger without revealing it. % how is this done? 'https://hyperledger-fabric.readthedocs.io/en/release-2.3/private-data/private-data.html#what-is-private-data'
+
+\section{Data Privacy}
+
+\section{Healthcare Stuff} % change heading
+
+use these: 
+
+\cite{yu_comparison_2020} $<--$ 'Comparison of Smart Contract Blockchains for Healthcare Applications'
+
+\cite{stamatellis_privacy-preserving_2020} $<--$ 'A-Privacy-Preserving-Healthcare-Framework-Using-Hyperledger-Fabric'
+
+\subsection{FHIR}
+FHIR - standards for sharing healthcare information.\linebreak[1]
+
+\section{Security}
+
+a reference = \cite{brotsis_security_2020} $<--$ 'On the Security and Privacy of Hyperledger Fabric - Challenges and Open Issues'
+
+Whilst penetration testing Hyperledger Fabric, there was found a high severity issue, which describes the potential to guess the content of a Private Data Collection.
+This is achieved using SHA256 as an oracle. To ensure this vulnerability is not available in the system, it is necessary to ensure any private data is salted before being hashed. \cite{shaw_penetration_2019}
+
+
+\section{Default application SDK}
+Go is best for chaincode but what would be the most suitable for the access applications? Java, because it's already highly used in enteprise already? **find reference for this ** 
+Java also enables cross-platform usage, most convenient for these systems that are already up and running. - Node satisfies these conditions also, Node has Performance Traffic Engine in fabric-test toolset.
+Fabric Network Operator tool, from Hyperledger, also utillises the Node SDK, looking like we might just wanna use Node? Benefits to web app vs desktop? 
+Java is probs more secure ** find ref ** but web app with Node would likely be more flexible, as it can be used for the access application as any device runs Node but internet is required.
+Java is statically typed, but this is also achieved when using TypeScript with Node - this brings both SDKs to an equal playing field, in terms of maintainability.
+Orgs will be able to develop their own applications, enabled by OSS. However, considerations are in place for the best default SDK to use, as the correct choice could simplify adoption.
+
+Does Node possess an advantage in terms of ease of adoption? Can more mobile devices use Node than Java? Does it even matter which SDK? 
 
 
 \chapter{Chaincode}
@@ -213,31 +261,46 @@ Transaction flow "The SDK serves as a shim to package the transaction proposal i
 [Covid-19: Vaccines and vaccine passports being sold on darknet] - this system would negate these spoofed vaccination records as all data will be on the system and if not it's illegitimate.
 \linebreak[3]
 
-\chapter{Essential Considerations}
-
-\section{Ethical Implications}
-
-\section{Data Privacy}
-
-\section{FHIR}
-FHIR - standards for sharing healthcare information.\linebreak[1]
-
-\section{Security}
-Whilst penetration testing Hyperledger Fabric, there was found a high severity issue, which describes the potential to guess the content of a Private Data Collection.
-This is achieved using SHA256 as an oracle. To ensure this vulnerability is not available in the system, it is necessary to ensure any private data is salted before being hashed. \cite{shaw_penetration_2019}
-
-
-\section{Default application SDK}
-Go is best for chaincode but what would be the most suitable for the access applications? Java, because it's already highly used in enteprise already? **find reference for this ** 
-Java also enables cross-platform usage, most convenient for these systems that are already up and running. - Node satisfies these conditions also, Node has Performance Traffic Engine in fabric-test toolset.
-Fabric Network Operator tool, from Hyperledger, also utillises the Node SDK, looking like we might just wanna use Node? Benefits to web app vs desktop? 
-Java is probs more secure ** find ref ** but web app with Node would likely be more flexible, as it can be used for the access application as any device runs Node but internet is required.
-Java is statically typed, but this is also achieved when using TypeScript with Node - this brings both SDKs to an equal playing field, in terms of maintainability.
-Orgs will be able to develop their own applications, enabled by OSS. However, considerations are in place for the best default SDK to use, as the correct choice could simplify adoption.
-
-Does Node possess an advantage in terms of ease of adoption? Can more mobile devices use Node than Java? Does it even matter which SDK? 
-\chapter{Designing a Distributed Immunisation Information System}
+\chapter{System Analysis \& Design}
 zero-knowledge asset transfer vs zero-knowledge proof? 
+
+\section{Hyperledger Fabric}
+\href{'https://wiki.hyperledger.org/display/fabric/Design+Documents'} WRITE ABOUT THIS!
+
+\subsection{Architecture Overview}
+Hyperledger projects follow a design philosophy, which includes a modular, extinsible approach; enabling interoperability.
+Design puts an emphasis on secure solutions, crucial to systems using sensitive data.
+Hyperledger's token-agnostic approach simplifies bringing blockchain to business infrastructure. % ref?
+
+\subsection{Inspiration} %- from hyperledger fabric projects, redo title
+Use $-->$ \cite{yuan_design_2018}.
+
+\subsection{Consensus}
+Distributed systems \& consensus, use \cite{lamport_byzantine_1982}. \linebreak[1]
+
+The consensus problem occurs when attempting to achieve reliability in a distributed system, in the presence of faulty processes. 
+A system requires processes to reach an \emph agreement on a value after one or more processes propose what the value should be. 
+In a system such that: each process $p_i$ communicates with other processes via message passing (we assume communication is reliable), up to some number $f$ of the $N$ processes are faulty, the remainder of processes are correct.\linebreak[1]
+Reaching consensus is achieved as follows. 
+Every process $ p_i $ starts in an \emph{undecided} state and \emph{proposes} a single value $v_i$.
+The processes communicate with eachother and exchange values. 
+Each process then sets the value of a \emph{decision variable}, $d_i$. 
+In doing so the process enters the \emph{decided} state and can no longer change $d_i$.\cite{coulouris_distributed_2011}
+\begin{enumerate}
+	\item Termination: Eventually each correct process sets a decision variable.
+	\item Agreement: The decision of all correct processes is the same.
+	\item Integrity: If the correct processes al proposed the same value, then any correct process in the \emph{decided} state has chosen that value.\cite{coulouris_distributed_2011}
+\end{enumerate}
+
+In Hyperledger business blockchain frameworks consensus is reached by performig two seperate activities:
+\begin{enumerate}
+  \item Ordering of transactions
+  \item Validating transactions
+\end{enumerate}
+In the first step, the transactions are received from the client.
+An ordering service is used to order the transactions. 
+To enable confidentiality, the ordering service may be agnostic to the transaction; that is, the transaction content can be hashed or encrypted.\cite{noauthor_hyperledger_2017}
+This is extremely benificial to this system, as maintaining confidentiality is essential to abiding by the GDPR \cite{noauthor_general_nodate}.
 
 \chapter{Immunisation verification}
 smarthealth.cards by Vaccination Credential Initiative (VCI) - smart card framework.\linebreak[1]
@@ -246,10 +309,10 @@ Use an SDK to invoke chaincode that compares the provided data (hash of the tran
 
 \chapter{Blockchian-as-a-Service}
 
-Using Blockchain for Electronic Health Records \href{'https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8863359'} \cite{shahnaz_using_2019}
+Using Blockchain for Electronic Health Records \href{'https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8863359'} \cite{shahnaz\_using\_2019}
 
 
-**shortcomings are discussed here: \href{'https://ieeexplore.ieee.org/document/9284197'} \cite{brotsis_security_2020} ** . The computing power and security provided by BaaS can make up for the shortcomings aforementioned.\cite{song_research_2021}.
+**shortcomings are discussed here: \href{'https://ieeexplore.ieee.org/document/9284197'} \cite{brotsis\_security\_2020} ** . The computing power and security provided by BaaS can make up for the shortcomings aforementioned.\cite{song\_research\_2021}.
 
 Comparing Blockchain-as-a-Service platforms, to identify which tool is most suitable for delpoying the proposed Distributed Immunisation Information System built with Hyperledger Fabric.\linebreak[1]
 
@@ -261,9 +324,6 @@ Reading \cite{onik_performance_2019}.\linebreak[1]
 latency as well as consensus approach"\linebreak[1]
 
 Azure have FHIR API, is it the only one? looks like maybe Amazon also \href{'https://azure.microsoft.com/en-gb/services/azure-api-for-fhir/?ocid=AID754288&wt.mc_id=azfr-c9-scottha%2CCFID0475'}{Azure FHIR API}
-
-
-
 
 \end{flushleft}
 
