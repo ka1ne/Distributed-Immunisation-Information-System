@@ -1,3 +1,5 @@
+chaincode/vendor/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof

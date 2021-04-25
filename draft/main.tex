@@ -1,0 +1,59 @@
+\documentclass{report}
+
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{caption}
+
+\newcommand{\source}[1]{\caption*{Source: {#1}} }
+
+\usepackage[
+    style=ieee
+    ]{biblatex}
+\addbibresource{refs/references.bib}
+\usepackage{hyperref}
+
+\title{Distributed Immunisation Information System}
+\author{198860}
+
+\begin{document}
+
+\input{titlepage}
+
+\begin{abstract}
+..
+\end{abstract}
+
+\begin{flushleft}
+
+\chapter{Statements}
+\input{chapters/signed-statement}
+
+\chapter{Summary}
+\input{chapters/summary}
+
+\tableofcontents
+
+\listoffigures
+
+\chapter{Introduction}
+\input{chapters/introduction}
+
+\chapter{Professional Considerations}
+\input{chapters/professional-considerations}
+
+\chapter{Body of Report}
+\input{chapters/report}
+
+\chapter{Conclusion}
+\input{chapters/conclusion}
+
+\printbibliography
+
+\appendix
+\chapter{Appendix Title}
+\input{chapters/appendix}
+
+
+\end{flushleft}
+
+\end{document}

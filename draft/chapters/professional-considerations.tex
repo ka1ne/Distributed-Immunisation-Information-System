@@ -1,0 +1,148 @@
+ (a) How did you address ethical issues? \linebreak[1]
+ (b) How did you address BCS Code of Conduct? \linebreak[1]
+ (c) If the interim report has mentioned that human participants would be involved but there was no need to apply for ethical approval, provide completed and signed form in appendix
+
+
+ The system proposed in this project will process personal data,
+ in the form of immunisation records, so necessitates
+ consideration of ethical and legal requirements.
+ 
+ Blockchains are not viable for data-storage, so ipfs (versinoed peer-to-peer file sharing system %insert ref for ipfs here, whitepaper / docs 
+     ) or off-chain storage ? \url{https://www.ibm.com/downloads/cas/RXOVXAPM} $<--$ talks about GDPR necessitating off-chain storage, because of Art. 17 GDPRRight to erasure (‘right to be forgotten’) \url{https://gdpr-info.eu/art-17-gdpr/}
+ any research here? definitely necessitates incorporation of FHIR, or anything similar which is useful, to interoperability in terms of exististing Immunisation Information Systems infrastructure. % find refs
+ 
+ \section{BCS Code of Conduct}
+ This project has been aligned with the BCS Code of Conduct;
+ relevant sections are as follows:
+ \renewcommand{\labelenumii}{\alph{enumii}}
+  \begin{enumerate}
+    \item Public Interest
+    You shall:
+    \begin{enumerate}
+      \item have a due regard for public health, privacy,
+      security and wellbeing of others and the environment.
+      Encryption methods will be used where necessary to
+      ensure the confidentiality of information in the
+      system.
+      \item have due regard for the legitimate rights of Third
+      Parties.
+      This system will make use of asymmetric-key
+      encryption as well as hash functions to protect data,
+      including that of third parties.
+      \item promote equal access to the benefits of IT and
+      seek to promote the inclusion of all sectors in society
+      wherever opportunities arise.
+      This project proposes the system detailed be adopted
+      by nations to provide a means of access to personal
+      immunisation records, enabling ease of access for the
+      population.
+     \end{enumerate}
+    \item Professional Competence and Integrity
+    You shall:
+    \begin{enumerate}
+     \item only undertake to do work or provide a service
+     that is within your professional competence.
+     \item NOT claim any level of competence that you do
+     not possess. This project has been thoroughly considered and the
+     conclusion has been reached that it is within my
+     professional competence.
+     \item develop your professional knowledge, skills and
+     competence on a continuing basis. Maintaining
+     awareness of technological developments,
+     procedures, and standards that are relevant to your
+     field.
+     This project explores the current solutions for
+     immunisation information systems, evolving my
+     professional knowledge. This project displays an
+     awareness of technological standards and procedures necessary for a distributed IIS.
+     \item ensure that you have the knowledge and
+     understanding of Legislation and that you comply
+     with such Legislation, in carrying out your
+     professional responsibilities.
+     This project includes a section exploring the
+     legislation concerning this system. Specifically, the
+     geographic area in which this system is being
+     produced and how legislation governs the operations
+     of such a system.
+     \item respect and value alternative viewpoints and,
+     seek, accept and offer honest criticisms of work.
+     This project shall regularly be shared with my project
+     supervisor to gain alternative viewpoints and
+     criticisms, which will be implemented.
+     \item avoid injuring others, their property, reputation,
+     or employment by false or malicious or negligent
+     action or inaction.
+     The design section of this project will detail the
+     necessary security methods to maintain
+     confidentiality, integrity and authenticity in the
+     system. % todo <--------------------------------------------- YO!!!!!!
+  \end{enumerate}
+  \end{enumerate}
+ 
+  \subsection{Legislation}
+  The General Data Protection Regulation (GDPR) is a privacy
+  and security law, passed by the European Union (EU),
+  imposes obligations onto organizations that target or collect
+  data related to EU citizens and residents. \cite{noauthor_general_nodate} \linebreak[1]
+ 
+ The GDPR sets out several key principles:
+ \begin{enumerate}
+   \item Lawfulness, fairness and transparency
+   \item Purpose limitation
+   \item Data minimization
+   \item Accuracy
+   \item Storage limitation
+   \item Integrity and confidentiality
+   \item Accountability
+ \end{enumerate}
+ 
+ These stated principles are essential to our approach to
+ processing personal data. Compliance with the principles
+ established in the GDPR is fundamental to ensuring good
+ practice in data protection.
+ In Article 35(1) of the GDPR it states that a Data Protection
+ Impact Assessment (DPIA) is required “Where a type of
+ processing in particular using new technologies, and taking
+ into account the nature, scope, context and purposes of the
+ processing, is likely to result in a high risk to the rights and
+ freedoms of natural persons, the controller shall, prior to the
+ processing, carry out an assessment of the impact of the
+ envisaged processing operations on the protection of personal
+ data. A single assessment may address a set of similar
+ processing operations that present similar high risks.”. This
+ asserts that if the system being designed and developed in this
+ project is implemented in the real world performing a DPIA is
+ mandatory. Though, a DPIA will not be necessary for this
+ undertaking.
+ As the GDPR is mainly concerned with the European
+ Economic Area (EEA), producing this system in the UK
+ brings concerns. The UK is currently in a transition period
+ until the 31st of December 2020. At the end of this transition
+ period the UK will become a third country. Presently, the UK
+ is seeking adequacy decisions from the European
+ Commission. “The effect of an adequacy decision is that
+ personal data can be sent from an EEA state to a third country
+ without any further safeguard being necessary” because “The
+ European Commission has the power to determine whether a
+ third country has an adequate level of data protection.” [3]. If
+ the adequacy decision is not secured, by the end of the
+ transition period, the provisions set out in [4] will take effect.
+ 
+ Medical records are pieces of personal, sensitive data which are stored, processed, processed and transmitted in healthcare systems. % work this in somewhere
+ 
+ Recital 26 Not Applicable to Anonymous Data* so basically don't worry about GDPR  \url{https://gdpr-info.eu/recitals/no-26/}
+ 
+ \subsection{How did you address ethical issues?}
+ 
+ \subsection{How did you address BCS Code of Conduct?} 
+ 
+ \subsection{Ethical Implications}
+ 
+ "Issues of concern are falsified or counterfeit vaccine certificates" are described in \cite{schlagenhauf_variants_2021}, when considering digital vaccination passports. 
+ Blockchain enables an immutable store of data, rendering any attempt at providing a spoofed record would be nullified due to the data the individual provides not being in the ledger.
+ Hyperledger Fabric, the framework of choice to aid in production of the network, allows access to verify that private data is in fact in a ledger without revealing it. % how is this done? 'https://hyperledger-fabric.readthedocs.io/en/release-2.3/private-data/private-data.html#what-is-private-data'
+ 
+ \subsection{Data Privacy}
+ 
+ other than GDPR, considerations include: what?
+ 
