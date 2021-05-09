@@ -3,6 +3,17 @@
 \usepackage{graphicx}
 \graphicspath{ {images/} }
 \usepackage{caption}
+\usepackage[toc,page]{appendix}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage{listings}
+\definecolor{grey}{rgb}{0.5,0.5,0.5}
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  breaklines=true,
+  commentstyle=\color{grey}
+}
 
 \newcommand{\source}[1]{\caption*{Source: {#1}} }
 
@@ -50,7 +61,7 @@
 \printbibliography
 
 \appendix
-\chapter{Appendix Title}
+\chapter{Hyperledger Fabric}
 \input{chapters/appendix}
 
 

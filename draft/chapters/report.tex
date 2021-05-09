@@ -73,13 +73,13 @@ This is achieved using SHA256 as an oracle. To ensure this vulnerability is not 
 
 \section{System Design}
 
-Usage of Raft or Kafka is sufficient as Byzantine fault tolerance is not required in the proposed sysetem, because the proposed system includes nodes which will be controlled by trusted authorities. 
+Usage of Raft or Kafka is sufficient as Byzantine fault tolerance is not required in the proposed sysetem, as the nodes shall be controlled by trusted authorities.
 Though, a Byzantine fault-tolerant ordering service for Hyperledger Fabric has been developed, this would be useful if nodes were prone to malicious activity. \cite{sousa_byzantine_2018}
 
 \cite{yusuf1_comparison_2020} states that Raft is superior to Kafka in terms of success and speed when conducting invoke transactions due to its simpller framework. But, when querying transactions Kafka is superior since the throughput rate is larger.
 So, which one ??
 
-Developing and testing chaincode was initially performed using the Fabric test network, provided in the official documentation for Hyperledger Fabric \cite{noauthor_using_nodate}. 
+Developing and testing chaincode was initially performed using the Fabric test network, provided in the official documentation for Hyperledger Fabric \cite{noauthor_using_nodate}, contained in the "fabric-samples" repository \ref{appendix:testnet}.
 It is based on a limited configuration:
 \begin{enumerate}
 \item{It includes two peer organizations and an ordering organization.}
@@ -137,8 +137,9 @@ Hyperledger's token-agnostic approach simplifies bringing blockchain to business
 
 Hyperledger projects embrace security by design and follow the best practices specified by the Linux Foundation's Core Infrastructure initiative. \url{https://www.coreinfrastructure.org/}
 
-As discussed in \cite{androulaki_hyperledger_2018}, blockchain systems typically, both permissioned and permissionless, follow the order-execute architecture. This execution style involves ordering transactions first, using a consensus protocol, then executes them in the same order on all peers sequentially.\footnote{This report follows the convention set in the Hyperledger Fabric whitepaper of calling the transaction execution (named "transaction validation" in blockchains such as Bitcoin) \emph{transaction execution} to bring the terminology together.}
-\begin{figure}[h]
+As discussed in \cite{androulaki_hyperledger_2018}, blockchain systems typically, both permissioned and permissionless, follow the order-execute architecture. 
+This execution style involves ordering transactions first, using a consensus protocol, then executes them in the same order on all peers sequentially.\footnote{This report follows the convention set in the Hyperledger Fabric whitepaper of calling the transaction execution (named "transaction validation" in blockchains such as Bitcoin) \emph{transaction execution} to bring the terminology together.}
+\begin{figure}[H]
   \includegraphics[scale=0.9]{order-execute}
   \caption{Order-execute architecture in replicated services}
   \source{\cite{androulaki_hyperledger_2018}}
@@ -149,6 +150,8 @@ The most significant disadvantages are as follows:
 \emph{Sequential execution}. Executing transactions sequentially on all peers limits the effective throughput that can be achieved on the blockchain.\cite{androulaki_hyperledger_2018} 
 One solution to this problem, used by Ethereum \cite{wood_ethereum_nodate}, utilises the concept of \emph{gas} consumed by a transaction execution, which is converted at a \emph{gas price} to a cost in the cryptocurrency and billed to the transaction submitter.
 This solution is excellent for use in permissionless blockchains, though does not suffice when designing a general-purpose, permissioned, token-agnostic, blockchain like Hyperledger Fabric. \cite{androulaki_hyperledger_2018} \linebreak[1]
+
+% ADD ABOUT FABRIC MODEL AND FIGURE OF IT'S EXECUTION STYLE
 
 Hyperledger Fabric distributed applications consist of two parts: A smart contract, called \emph{chaincode}, which is program code that implements the application logic and runs during the \emph{execution phase}.
 As well as an \emph{endorsment policy} that is evaluated in the \emph{validation phase}. \cite{androulaki_hyperledger_2018} \linebreak[1]
@@ -189,12 +192,16 @@ These certificates are based on the widely accepted X.509 Public Key Infrastruct
 Fabric utilises certificate chains, a concept defined using the name \emph{certification path} in \cite{cooper_internet_nodate}, which Hyperledger calls a \emph{Chain of trust}, to distribute the responsibiity of issuing certificates. 
 The processes uses \emph{Intermediate CAs} which have their certificates issued by a Root CA. 
 This allows for backtracking to find the Root CA of any issued certificate, this helps scaling remain secure and limits the exposure of Root CAs - which if compromised would endanger the \emph{Chain of trust}. \cite{noauthor_identity_nodate}
-
-\begin{figure}[h]
-  \includegraphics[scale=0.9]{identity-diagram}
+The \emph{Chain of trust} is depicted in \ref{fig:trustchain}.
+\begin{figure}[H]
+  \includegraphics[scale=0.6]{identity-diagram}
   \caption{CA chain of trust in Fabric}
   \source{\cite{noauthor_identity_nodate}}
+  \label{fig:trustchain}
 \end{figure}
+
+% explain cryptogen, configtxgen, configtxlator? check which ones we actually use lol cause I think I remember maybe some of these being only for test-network???
+
 
 \cite{ma_privacy_2019} $<--$ The privacy protection mechanism of Hyperledger Fabric and its application in supply chain finance
 
@@ -228,11 +235,16 @@ Using Go chaincode, generating UML diagrams from this, classes such as: Record, 
 
 \section{System Architecture Overview}
 
-going to call the "admissions staff" (people who want to check immunisation information) 
+going to call the "admissions staff" (people who want to check immunisation information) Verifiers.
 
 Each organisation in the network has control over its members, through Fabric's MSPs. 
 This control also extends to the organisation's data, this shall not be shared with other organisations unless allowed by the organisation. 
 Private channel capabilities ensure that data will only be shared with those authorised by the owning organisation. 
+
+Fabric's test-network was used in the initial design of the network for the DIIS \ref{appendix:testnet}. The test network, as described previously, enables the testing of chaincode and applications without setting up a dedicated network. 
+This is excellent for the development process. 
+
+\section{}
 
 \section{Chaincode}
 
@@ -247,7 +259,40 @@ The duration of protection conferred by vaccines should
 be tied to passport expiry dates \cite{dye_covid-19_2021}.
 This is implemented via the expiration of our Record contract.
 
-\section{Immunisation verification}
+The chaincode for this system will represent "Records", immunisation records, the initial chaincode package will be called "record\_1.0". The implementation of this is documented below. 
+Representing the records as chaincode, or smart contracts, enables the manipulation of records by organisations that "own" them. The "Owner" shall be recorded inside the Record contract. 
+The chaincode written for this system can be found at \ref{appendix:chaincode}.
+
+\subsection{Implementation}
+Fabric networks use chaincode to initialise and manage the ledger state, through transactions submitted by applications. \cite{noauthor_writing_nodate}
+To use chaincode in a network organisations need to agree to the parameters, the name of the chaincode, version and the endorsement policy. 
+\cite{noauthor_writing_nodate} explains that the agreement is reached using the following steps:
+\begin{enumerate}
+  \item Package the Chaincode
+  \item Install the chaincode on peers: Each organisation that will utilise the specific chaincode, to endorse transactions or query ledgers, needs to execute this step.
+  \item Approve chaincode definition for organisation: This step also requires completion from each organisation that will use the chaincode. By default, the chaincode needs to be approved by atleast a majority of organisations before it can be deployed on a channel.
+  \item Commit the chaincode definition to the channel: After the chaincode is approved by a sufficient number of organisations, one organisation can commit the chaincode definition.
+\end{enumerate}
+
+Chaincode needs to be packaged in a tar file for it to be installed onto peers \cite{noauthor_fabric_nodate}. Using the Fabric peer binaries, the following command can be used to skip manually adding the necessary "metadata.json" file which required in the tar file.
+\begin{lstlisting}[language=bash, caption={peer lifecycle chaincode package command}]
+  # create the chaincode package using the peer lifecycle chaincode package command
+  peer lifecycle chaincode package record.tar.gz --path ../asset-transfer-basic/chaincode-go/ --lang golang --label record_1.0
+\end{lstlisting}
+
+Though not necessary for Fabric networks, it would be useful for organisations to synchronise their labels for chaincode. This will be a standard for adopting this system.
+
+Installation of chaincode on peers can be executed via CLI or an SDK \cite{noauthor_fabric_nodate}. % come back and talk about if we added SDK / just say you need to use CLI for this DIIS network.
+
+\begin{figure}[H]
+  \includegraphics[scale=0.7]{cc-diagram-redo}
+  \caption{Peer admin from two organisations installs the chaincode package record\_1.0}
+  \source{Adapted from \cite{noauthor_fabric_nodate}}
+\end{figure}
+
+In this system is it not necessary to set the endorsement policy for the chaincode as it will be utlising the default value, which requires that a majority of organisations endorse a transaction. \cite{noauthor_fabric_nodate}
+
+\section{Immunisation Verification}
 smarthealth.cards by Vaccination Credential Initiative (VCI) - smart card framework.\linebreak[1]
 
 Use an SDK to invoke chaincode that compares the provided data (hash of the transaction? - in which your immunisation record is stored) with the hash (SHA-250 probs) of the data in the ledger. If there's no match there's no verification, details?
@@ -274,6 +319,9 @@ Beginning, I was aware of two options: Azure and IBM.\linebreak[1]
 \subsection{IBM Blockchain Platform}
 To ensure all organisations can setup the necessary infrastructure, it's most simple to use a Blockchain-as-a-Service platform. 
 IBM Blockchain Platform for IBM Cloud is built with Hyperledger Fabric v1.4.11 and v2.2.2. The system proposed in this report uses v2.2.2, as it delivers delivers important new features and changes for users and operators alike, including support for new application and privacy patterns, enhanced governance around smart contracts, and new options for operating nodes. \cite{noauthor_whats_nodate}
+
+useful for tesing, this uses This code pattern uses IBM Db2 federation capabilities to perform SQL analytics on a sample blockchain insurance application using Hyperledger Fabric. 
+This code pattern uses the sample blockchain insurance application. Apache Zeppelin notebook will be used to perform analytics by querying the blockchain using Db2 and SQL. - https://developer.ibm.com/patterns/use-db2-and-sql-to-perform-analytics-on-blockchain-transactions/
 
 May have to use IBM just because of their whole hybrid cloud infrastructure, could be too easy to give up \cite{noauthor_ibm_2020}
 \linebreak[1]
