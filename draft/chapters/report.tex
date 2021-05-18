@@ -53,12 +53,63 @@ use these:
 
 \cite{paranjape_implementation_2019} $ <-- $ Implementation Considerations for Blockchain in Healthcare Institutions
 
-\cite{yu_comparison_2020} $<--$ 'Comparison of Smart Contract Blockchains for Healthcare Applications'
+
 
 \cite{stamatellis_privacy-preserving_2020} $<--$ 'A-Privacy-Preserving-Healthcare-Framework-Using-Hyperledger-Fabric'
 
+Though medical records have evolved into electronic records, the immunisation systems around the globe haven't evolved \cite{abbas_review_2014}.
+
+As discussed in \cite{yu_comparison_2020}, Hyperledger Fabric for use in healthcare applications brings find-grained access control. % $<--$ 'Comparison of Smart Contract Blockchains for Healthcare Applications'
+ 
 \subsubsection{FHIR}
 FHIR - standards for sharing healthcare information.\linebreak[1]
+
+
+\section{benefits}
+[Covid-19: Vaccines and vaccine passports being sold on darknet] - this system would negate these spoofed vaccination records as all data will be on the system and if not it's illegitimate.
+\linebreak[3]
+
+\section{System Design}
+
+The following section will detail the design of the proposed system.
+Using the C4 model for visualing software \cite{noauthor_c4_nodate}, diagrams shall be generated for visualisation of the system \label{appendix:c4plantuml}.
+The C4 model employs an "abstraction-first" approach to diagramming architecture \cite{noauthor_c4_nodate}. 
+
+
+talk about system context 
+\begin{figure}[H]
+  \includegraphics[scale=0.5]{system-context}
+  \caption{System context diagram for DIIS}
+\end{figure}
+
+
+talk about having a web app communicate via gateway to fabric network
+\begin{figure}[H]
+  \includegraphics[scale=0.5]{system-lower-view}
+  \caption{A lower-level system view}
+\end{figure}
+
+Design of the web application used to communicate with the Fabric network has been achieved using the Model-View-Controller (MVC) architecture. 
+The web application is seperated into three main components, each built to handle specific tasks. 
+This is to maintain a seperation of concerns \cite{richards_software_2015}.
+Designing this way ensures modularity \cite{laplante_what_2007}.
+Encapsulation of components is essential to ensuring minimal system-breaking bugs, that may occur when code is changed, through added flexibility \cite{application_2001}.
+It also aids in keeping the system as infrastructure agnostic as possible.
+ExpressJS is the framework of choice, for building with Nodejs. 
+It provides middleware that aids backend functionality by providing handling of routes, requests and views \cite{noauthor_express_nodate}.
+An array of template engines are available to use with Express, a selection has been made for this system to use EJS.
+EJS provides embedded JavaScript template functionality, using plain JavaScript enables speedy execution and simple debugging \cite{noauthor_ejs_nodate}.
+
+Component diagram for a lower-level perspective on the system
+\begin{figure}[H]
+  \includegraphics[scale=0.5]{lower-lower}
+  \caption{Component diagram for the DIIS}
+\end{figure}
+
+
+
+% HOW MY APP WORKS W THE NETWORK
+To bring up the network, to 
 
 \subsection{Security}
 
@@ -67,44 +118,58 @@ a reference = \cite{brotsis_security_2020} $<--$ 'On the Security and Privacy of
 Whilst penetration testing Hyperledger Fabric, there was found a high severity issue, which describes the potential to guess the content of a Private Data Collection.
 This is achieved using SHA256 as an oracle. To ensure this vulnerability is not available in the system, it is necessary to ensure any private data is salted before being hashed. \cite{shaw_penetration_2019}
 
-\section{benefits}
-[Covid-19: Vaccines and vaccine passports being sold on darknet] - this system would negate these spoofed vaccination records as all data will be on the system and if not it's illegitimate.
-\linebreak[3]
 
-\section{System Design}
-
-Usage of Raft or Kafka is sufficient as Byzantine fault tolerance is not required in the proposed sysetem, as the nodes shall be controlled by trusted authorities.
-Though, a Byzantine fault-tolerant ordering service for Hyperledger Fabric has been developed, this would be useful if nodes were prone to malicious activity. \cite{sousa_byzantine_2018}
-
-\cite{yusuf1_comparison_2020} states that Raft is superior to Kafka in terms of success and speed when conducting invoke transactions due to its simpller framework. But, when querying transactions Kafka is superior since the throughput rate is larger.
-So, which one ??
-
-Developing and testing chaincode was initially performed using the Fabric test network, provided in the official documentation for Hyperledger Fabric \cite{noauthor_using_nodate}, contained in the "fabric-samples" repository \ref{appendix:testnet}.
-It is based on a limited configuration:
-\begin{enumerate}
-\item{It includes two peer organizations and an ordering organization.}
-\item{For simplicity, a single node Raft ordering service is configured.}
-\item{To reduce complexity, a TLS Certificate Authority (CA) is not deployed. All certificates are issued by the root CAs.}
-\item{The sample network deploys a Fabric network with Docker Compose. Because the nodes are isolated within a Docker Compose network, the test network is not configured to connect to other running Fabric nodes.} \cite{noauthor_using_nodate}
-\end{enumerate}
 
 
 Currently, medical data has the HL7 standard as a data exchange format but the
 exchange of medical records between countries is not widespread. \cite{kung_personal_2020}
 
-\subsection{Default application SDK}
-Go is best for chaincode but what would be the most suitable for the access applications? Java, because it's already highly used in enteprise already? **find reference for this ** 
-Java also enables cross-platform usage, most convenient for these systems that are already up and running. - Node satisfies these conditions also, Node has Performance Traffic Engine in fabric-test toolset.
-Fabric Network Operator tool, from Hyperledger, also utillises the Node SDK, looking like the project might just wanna use Node? Benefits to web app vs desktop? 
-Java is probs more secure ** find ref ** but web app with Node would likely be more flexible, as it can be used for the access application as any device runs Node but internet is required.
-Java is statically typed, but this is also achieved when using TypeScript with Node - this brings both SDKs to an equal playing field, in terms of maintainability.
-Orgs will be able to develop their own applications, enabled by OSS. However, considerations are in place for the best default SDK to use, as the correct choice could simplify adoption.
+\subsection{Network}
+Usage of Raft or Kafka is sufficient as Byzantine fault tolerance is not required in the proposed sysetem, as the nodes shall be controlled by trusted authorities.
+Though, a Byzantine fault-tolerant ordering service for Hyperledger Fabric has been developed, this would be useful if nodes were prone to malicious activity. \cite{sousa_byzantine_2018}
 
-Does Node possess an advantage in terms of ease of adoption? Can more mobile devices use Node than Java? Does it even matter which SDK? 
+\cite{yusuf1_comparison_2020} states that Raft is superior to Kafka in terms of success and speed when conducting invoke transactions due to its simpler framework. But, when querying transactions Kafka is superior since the throughput rate is larger.
+So, which one ??
+
+The intial network for the system is based on the Fabric test network, provided in the official documentation for Hyperledger Fabric \cite{noauthor_using_nodate}, contained in the "fabric-samples" repository \ref{appendix:testnet}.
+It is kept to a limited configuration for ease of development:
+\begin{enumerate}
+\item{It includes two peer organizations and an ordering organization.}
+\item{For simplicity, a single node Raft ordering service is configured. Though, when in production the ordering nodes may be implemented also by those organisations that wish to host their own ordering node.}
+\item{A TLS Certificate Authority (CA) is deployed.}
+\end{enumerate}
+
+% ./network.sh down
+% ./network.sh up createChannel -c mychannel -ca
+% ./network.sh deployCC -ccn record -ccp ~/D*/app/chaincode -ccl go
+
+
+database setup schema 
+> db.createUser(
+... {
+...   user: "user",
+...   pwd: "userpassword123",
+...   roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+... }
+...)
+
+\subsection{Default application SDK}
+%Go is best for chaincode but what would be the most suitable for the access applications? Java, because it's already highly used in enteprise already? **find reference for this ** 
+%Java also enables cross-platform usage, most convenient for these systems that are already up and running. - Node satisfies these conditions also, Node has Performance Traffic Engine in fabric-test toolset.
+%Fabric Network Operator tool, from Hyperledger, also utillises the Node SDK, looking like the project might just wanna use Node? Benefits to web app vs desktop? 
+%Java is probs more secure ** find ref ** but web app with Node would likely be more flexible, as it can be used for the access application as any device runs Node but internet is required.
+%Java is statically typed, but this is also achieved when using TypeScript with Node - this brings both SDKs to an equal playing field, in terms of maintainability.
+
+Organisations will have the option to develop their own applications, enabled by Open-source software practices. 
+However, considerations are in place for the best default SDK to use, as the correct choice could simplify adoption.
+The decision was made to use the Nodejs SDK as the default. 
+Node posseses an advantage in terms of ease of adoption, as all that is required to use the application is a browser. 
+Also, Fabric has a Performance Traffic Engine tool (PTE), specific to Node \ref{appendix:pte}. 
+Opting for the Node SDK enables the use of this in testing the network.  
 
 
 \subsection{Hyperledger Fabric}
-Hyperledger fabric is ... Using their MSPs is different to things like this \url{'https://www.hyperledger.org/blog/2020/04/21/trustid-a-new-approach-to-fabric-user-identity-management'}{TrustID: A New Approach to Fabric User Identity Management} how? Why are we not customising and instead going with fabric's defaut implementation, maybe because it fits our use case better? It makes sense as the orginisations using the system are governed already by their heath body, for UK it's MAYBE Department of Health \& Social Care - look this up! See if there's a general term for lead health body or whatever
+Hyperledger fabric is ... Using their MSPs is different to things like this \url{'https://www.hyperledger.org/blog/2020/04/21/trustid-a-new-approach-to-fabric-user-identity-management'}{TrustID: A New Approach to Fabric User Identity Management} % how? Why are we not customising and instead going with fabric's defaut implementation, maybe because it fits our use case better? It makes sense as the orginisations using the system are governed already by their heath body, for UK it's MAYBE Department of Health \& Social Care - look this up! See if there's a general term for lead health body or whatever
 
 Fabric has all the identity functionality built in, Indy + Aries would be more flexible but does that matter with an permissioned network? Fabric MSPs etc vs DIDs? Or does it use DIDs? \url{'https://www.w3.org/TR/did-core/'}{w3 DIDs}
 
@@ -124,7 +189,7 @@ Because we have eliminated non-determinism, Fabric is the first blockchain techn
 \subsubsection{Architecture Overview}
 
 Hyperledger Fabric's key design features, as introduced in \cite{androulaki_hyperledger_2018}, are explored in the following text.
-Asset, defined by chaincode, are exchanged across the network. These can range frmo the tangible to teh intangible. These are stored as a collection of key-value pairs, represented in binary and/or JSON, with state changes recorded as transaction on a channel ledger. 
+Assets, defined by chaincode, are exchanged across the network. These are stored as a collection of key-value pairs, represented in binary and/or JSON, with state changes recorded as transaction on a channel ledger. 
 Chaincode, the software defining assets, also defines the transaction instructions for manipulating the assets; chaincode is the business logic. Invocation of chaincode is recorded in the ledger.
 The ledger is described in \cite{noauthor_hyperledger_nodate} as the "sequenced, tamper-resistant record of all state transitions in the fabric." This ledger is comprised of a blockchian to store the records in blocks and a state database. 
 Channels are used to communicate privately between organisations, enabling privacy.
@@ -227,13 +292,30 @@ This is extremely benificial to this system, as maintaining confidentiality is e
 Consensus in Hyperledger Fabric is further broken into 3 phases: \emph{Endorsement}, \emph{Ordering} and \emph{Validation}.
 \begin{enumerate}
   \item Endorsement is driven by policy (eg. m of n signatures) upon which participants endorse a transaction. 
-  \item Ordering phase accepts the endorsed transactions and agrees to the order to be committed to teh ledger.
+  \item Ordering phase accepts the endorsed transactions and agrees to the order to be committed to the ledger.
   \item Validation takes a block of ordered transactions and validates the correctness of the results, including checking endorsement policy and double-spending.
 \end{enumerate}
-zero-knowledge asset transfer vs zero-knowledge proof? \linebreak[1]
-Using Go chaincode, generating UML diagrams from this, classes such as: Record, with states: immunised or not?
 
-\section{System Architecture Overview}
+% https://hyperledger-fabric.readthedocs.io/en/release-2.2/orderer/ordering_service.html <---------------------------
+The Ordering Service
+
+Orderer nodes and channel configuration
+
+Orderers and the transaction flow
+
+Ordering service implementations
+Raft % the Fabric implementation of the established Raft protocol uses a “leader and follower” model, in which a leader is dynamically elected among the ordering nodes in a channel (this collection of nodes is known as the “consenter set”), and that leader replicates messages to the follower nodes. Because the system can sustain the loss of nodes, including leader nodes, as long as there is a majority of ordering nodes (what’s known as a “quorum”) remaining, Raft is said to be “crash fault tolerant” (CFT).
+% Where Kafka uses a pool of servers (called “Kafka brokers”) and the admin of the orderer organization specifies how many nodes they want to use on a particular channel, Raft allows the users to specify which ordering nodes will be deployed to which channel. In this way, peer organizations can make sure that, if they also own an orderer, this node will be made a part of a ordering service of that channel, rather than trusting and depending on a central admin to manage the Kafka nodes.
+% With Raft, everything is embedded into your ordering node. Raft is easier to set up. Although Kafka has many admirers, even those admirers will (usually) admit that deploying a Kafka cluster and its ZooKeeper ensemble can be tricky, requiring a high level of expertise in Kafka infrastructure and settings. Additionally, there are many more components to manage with Kafka than with Raft, which means that there are more places where things can go wrong. And Kafka has its own versions, which must be coordinated with your orderers. With Raft, everything is embedded into your ordering node.
+
+zero-knowledge asset transfer vs zero-knowledge proof? \linebreak[1]
+% Using Go chaincode, generating UML diagrams from this, classes such as: Record, with states: immunised or not?
+
+\section{System Design}
+\subsection{System Architecture Overview}
+
+A central, trusted authority, such as the World Health Organisation (WHO) / Gavi, the vaccine alliance should maintain the ordering organisation. % https://www.gavi.org/
+System could be extended to allow all organisations to run ordering nodes, when using Raft, to allow peer organisations to bypass relying on a central admin to maage nodes. \cite{noauthor_ordering_nodate} 
 
 going to call the "admissions staff" (people who want to check immunisation information) Verifiers.
 
@@ -244,9 +326,9 @@ Private channel capabilities ensure that data will only be shared with those aut
 Fabric's test-network was used in the initial design of the network for the DIIS \ref{appendix:testnet}. The test network, as described previously, enables the testing of chaincode and applications without setting up a dedicated network. 
 This is excellent for the development process. 
 
-\section{}
+\subsection{Security}
 
-\section{Chaincode}
+\subsection{Chaincode}
 
 \cite{alexaki_blockchain-based_2018} suggests that medical records should contain metadata of a patient-provider encounter (visit date/time, location, etc.), 
 the data stored off-chain and should be entered when the record is produced. As immunisations expire, the ledger must store metadata on immunisations to ensure the record in the ledger can be invalidated when the date is reached.
@@ -263,7 +345,7 @@ The chaincode for this system will represent "Records", immunisation records, th
 Representing the records as chaincode, or smart contracts, enables the manipulation of records by organisations that "own" them. The "Owner" shall be recorded inside the Record contract. 
 The chaincode written for this system can be found at \ref{appendix:chaincode}.
 
-\subsection{Implementation}
+\subsection{Chaincode Implementation}
 Fabric networks use chaincode to initialise and manage the ledger state, through transactions submitted by applications. \cite{noauthor_writing_nodate}
 To use chaincode in a network organisations need to agree to the parameters, the name of the chaincode, version and the endorsement policy. 
 \cite{noauthor_writing_nodate} explains that the agreement is reached using the following steps:
@@ -296,6 +378,55 @@ In this system is it not necessary to set the endorsement policy for the chainco
 smarthealth.cards by Vaccination Credential Initiative (VCI) - smart card framework.\linebreak[1]
 
 Use an SDK to invoke chaincode that compares the provided data (hash of the transaction? - in which your immunisation record is stored) with the hash (SHA-250 probs) of the data in the ledger. If there's no match there's no verification, details?
+
+Developed using the test-application provided in the Fabric documentation \ref{appendix:testapp}. 
+This provided application sample uses javascript to interact with the network via Hyperledger Fabric's Node SDK \ref{appendix:nodesdk}. % \cite{noauthor_fabric-network_nodate} ? 
+
+enrolling the admin and registering the app user are interactions that take place between the application and the Certificate Authority, not between the application and the chaincode. % cite this https://hyperledger-fabric.readthedocs.io/en/release-2.2/write_first_app.html
+
+Strict mode ensures cleaner code, by preventing the use of undeclared variables \cite{noauthor_referenceerror_nodate}. 
+Strict mode is supported by all modern browsers, except Internet Explorer 9. Though, "use strict" is just a string, so IE 9 will not throw an error even if it does not understand it \cite{noauthor_javascript_nodate}.
+
+Admin is created with "network.sh up" and is used as the registrar for the CA. 
+The application builds a network configuration or 'connection profile', as an object in memory, by calling 'buildCCPOrg1'.
+This configuration is then used as a parameter to build an instance of the 'fabric-ca-client' \ref{appendix:nodeca},
+which is used to enroll users.
+
+Calling enrollAdmin generates, locally, a private key, public key, and X.509 certificate for the admin.
+Using a Certificate Signing Request, described in \cite{noauthor_rfc2986_nodate}, the locally generated public key is sent to the CA which returns an encoded certificate. % cite https://hyperledger-fabric.readthedocs.io/en/release-2.2/write_first_app.html
+These credentials are stored in a wallet, which is passed as a parameter along with the CA instance previously generated and the MSP name.  Wallets are used to manage identities in Fabric. \cite{noauthor_wallet_nodate}
+The wallet is produced by calling buildWallet, with parameters: 'Wallets', a class imported from 'fabric-network' \ref{appendix:nodesdk}, along with a path where the wallet shall reside. \ref{appendix:fabnetwallets}
+If no path is provided the wallet will be created in-memory. However, providing a path is suggested as in-memory wallets are volatile and so will be lost when an application ends normally or crashes. \cite{noauthor_wallet_nodate}
+
+Registration of the admin was bootstrapped when the CA started, so only enrollment was necessary.
+Now, the application is able to use the enrolled admin to register and enroll an application user, used to interact with the network.
+registerAndEnrollUser is called, by passing the CA instance, wallet, MSP name, userID for the organisation and affiliation label. 
+As with the admin enrollment, this function uses a Certificate Signing Request to register and enroll the user. The generated credentials are stored in the same wallet as the admin user. 
+The generated credentials permission the application user to interact with chaincode functions.
+For this, a reference to the channel name and contract name is necessary.
+These requirements are forfilled using the class Gateway, imported from 'fabric-network' \ref{appendix:fabnetgate}.
+% Our connection configuration specifies only the peer from your own Org. We tell node client sdk to use the service discovery (running on the peer), which fetches other peers that are currently online, metadata like relevant endorsement policies and any static information it would have otherwise needed to communicate with the rest of the nodes. The asLocalhost set to true tells it to connect as localhost, since our client is running on same network as the other fabric nodes. In deployments where you are not running the client on the same network as the other fabric nodes, the asLocalhost option would be set to false.
+
+% GO THROUGH MY APPS' INIT LEDGER + DESCRIBING THE FUNCTIONS IT INVOKES https://hyperledger-fabric.readthedocs.io/en/release-2.2/write_first_app.html <------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+% CAN'T USE ZKP BECAUSE IDEMIX ONLY SUPPORTS CERTAIN ATTRIBUTES, THINKING THIS MEANS ZKP IS AN EXTENSION LOL 
+
+% instead, trying private channels and see what security it brings
+
+MongoDB will be used as a document-based database, enabling the use of JSON (JavaScript Object Notation \cite{noauthor_json_nodate}) to model data. 
+Documents are stored in BSON (Binary JSON), which enables faster parsing \cite{noauthor_json_bson_nodate}. 
+Mongoose, an Object Data Modelling (ODM) library for MongoDB, will be used to model application data in Nodejs. Mongoose provides built-in validation and query building. \cite{noauthor_mongoose_nodate} 
+
+Application will be containerised using Docker, building containers both for the application and database. 
+Docker Compose allows the user to specify dependencies between services using the % \begin{minted}{yaml} depends_on \end{minted} command \cite{noauthor_compose_2021}.
+This command shall be used to ensure the Nodejs container waits until the database container is "healthy" using a % \begin{minted}{yaml} healthcheck \end{minted}.
+
+Credentials for patients shall be provided in the form of a UUID (Universally Unique IDentifier), defined in \cite{noauthor_rfc4122_nodate}.
+UUIDs will be created using a package for Node \label{appendix:uuid}. 
+Debated using an encrypted email service to give patients their credentials for use in the application, as the NHS already utilises this \cite{noauthor_guidance_nodate}. 
+However, for the system to remain as infrastructure agnostic as possible, the credentials shall be received by patients in-person when the immunisation is administered.
+
+% SECURITY, HOW IT DEALS WITH POTENTIAL VULNS
 
 \section{Blockchian-as-a-Service}
 

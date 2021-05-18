@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <ul>
+        <% records.forEach(function(record) { %>
+           <p>UUID: <%= record.uuid %></p>
+           <p>Timestamp: <%= record.timestamp %></p>
+           <p>Owner: <%= record.owner %></p>
+           <p>Expiration: <%= record.exp %></p>
+        <% }); %>
+     </ul>
+</html>

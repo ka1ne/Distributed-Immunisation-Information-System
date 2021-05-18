@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<form action="/records/genuuid" method="get">
+    <button type="submit">Get UUID</button>
+</form>
+<form action="/records/addrecord" method="post"> 
+    <div class="caption">Enter Your Record</div>
+    <input type="text" placeholder="Record UUID" name="uuid" <%=records[i].uuid; %>
+    <input type="date" placeholder="Record timestamp" name="timestamp" <%=records[i].timestamp; %>
+    <input type="text" placeholder="Record owner" name="owner" <%=records[i].owner; %>
+    <input type="date" placeholder="Record expiration" name="exp" <%=records[i].exp; %>
+    <button type="submit">Submit</button>
+</form>
+
+<form action="/records/checkrecord" method="post"> 
+    <div class="caption">Enter The Record UUID</div>
+    <input type="text" placeholder="Record UUID" name="uuid" <%=records[i].uuid; %>
+    <button type="submit">Submit</button>
+</form>
+</html>

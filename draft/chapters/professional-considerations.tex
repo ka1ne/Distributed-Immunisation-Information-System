@@ -1,16 +1,8 @@
- (a) How did you address ethical issues? \linebreak[1]
- (b) How did you address BCS Code of Conduct? \linebreak[1]
- (c) If the interim report has mentioned that human participants would be involved but there was no need to apply for ethical approval, provide completed and signed form in appendix
-
 
  The system proposed in this project will process personal data,
  in the form of immunisation records, so necessitates
  consideration of ethical and legal requirements.
- 
- Blockchains are not viable for data-storage, so ipfs (versinoed peer-to-peer file sharing system %insert ref for ipfs here, whitepaper / docs 
-     ) or off-chain storage ? \url{https://www.ibm.com/downloads/cas/RXOVXAPM} $<--$ talks about GDPR necessitating off-chain storage, because of Art. 17 GDPRRight to erasure (‘right to be forgotten’) \url{https://gdpr-info.eu/art-17-gdpr/}
- any research here? definitely necessitates incorporation of FHIR, or anything similar which is useful, to interoperability in terms of exististing Immunisation Information Systems infrastructure. % find refs
- 
+
  \section{BCS Code of Conduct}
  This project has been aligned with the BCS Code of Conduct;
  relevant sections are as follows:
@@ -72,10 +64,11 @@
      \item avoid injuring others, their property, reputation,
      or employment by false or malicious or negligent
      action or inaction.
-     The design section of this project will detail the
+     The Background Information section of the project details the
      necessary security methods to maintain
      confidentiality, integrity and authenticity in the
-     system. % todo <--------------------------------------------- YO!!!!!!
+     system. 
+     Briefly, the sytem utilises various techiques such as hashing data, Public Key Infrastructure and anonymous data verification to maintain confidentiality when handling Personally Idetifiable Information (PII).
   \end{enumerate}
   \end{enumerate}
  
@@ -124,25 +117,27 @@
  personal data can be sent from an EEA state to a third country
  without any further safeguard being necessary” because “The
  European Commission has the power to determine whether a
- third country has an adequate level of data protection.” [3]. If
+ third country has an adequate level of data protection.” \cite{noauthor_information_2020}. If
  the adequacy decision is not secured, by the end of the
- transition period, the provisions set out in [4] will take effect.
+ transition period, the provisions set out in \cite{noauthor_agreement_2019} will take effect.
  
- Medical records are pieces of personal, sensitive data which are stored, processed, processed and transmitted in healthcare systems. % work this in somewhere
- 
- Recital 26 Not Applicable to Anonymous Data* so basically don't worry about GDPR  \url{https://gdpr-info.eu/recitals/no-26/}
- 
- \subsection{How did you address ethical issues?}
- 
- \subsection{How did you address BCS Code of Conduct?} 
- 
- \subsection{Ethical Implications}
- 
- "Issues of concern are falsified or counterfeit vaccine certificates" are described in \cite{schlagenhauf_variants_2021}, when considering digital vaccination passports. 
- Blockchain enables an immutable store of data, rendering any attempt at providing a spoofed record would be nullified due to the data the individual provides not being in the ledger.
- Hyperledger Fabric, the framework of choice to aid in production of the network, allows access to verify that private data is in fact in a ledger without revealing it. % how is this done? 'https://hyperledger-fabric.readthedocs.io/en/release-2.3/private-data/private-data.html#what-is-private-data'
- 
- \subsection{Data Privacy}
- 
- other than GDPR, considerations include: what?
- 
+ \subsection{Addressing Considerations}
+ Because of Art. 17, GDPRs 'right to erasure' \cite{noauthor_art_nodate}, 
+ The system has implemented chaincode to delete assets held on the network.
+
+ Medical records are pieces of personal, sensitive data which are stored, processed, processed and transmitted in healthcare systems.
+Though, recital 26 is note applicable to anonymous data, maintaing data anonymity is how compliance with GDPR shall be maintained. \footnote{https://gdpr-info.eu/recitals/no-26/}
+
+
+
+ Randomized hashing offers the signer additional protection by reducing the likelihood that a preparer can generate two or more messages 
+that ultimately yield the same hash value during the digital signature generation process – even if it is practical to find collisions for the hash function. 
+
+Hash functions are formally defined in \cite{rompay_analysis_nodate} as a function \begin{math} h: D \rightarrow R \end{math} where the domain \begin{math} D = \{0,1\}^* \end{math} and the range \begin{math} R = \{0,1\}^n \end{math} for some \begin{math} n \geq 1 \end{math}
+using one way hash functions, as defined by Merkle in \cite{merkle_secrecy_1979}, are hash functions
+
+Storing only hashes in the database, keeps data anonymous and is complacent with the GDPR. 
+Also, this keeps the private data away from any verifiers etc, as all they check against is a hash.
+
+"Issues of concern are falsified or counterfeit vaccine certificates" are described in \cite{schlagenhauf_variants_2021}, when considering digital vaccination passports. 
+Blockchain enables an immutable store of data, rendering any attempt at providing a spoofed record would be nullified due to the data the individual provides not being in the ledger.

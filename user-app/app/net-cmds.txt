@@ -1,0 +1,5 @@
+./network.sh down
+
+./network.sh up createChannel -c mychannel -ca
+
+./network.sh deployCC -ccn record -ccp ../app/chaincode -ccl go

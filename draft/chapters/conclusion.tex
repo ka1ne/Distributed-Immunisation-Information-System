@@ -1,4 +1,44 @@
-This should be an assessment of the finished product. \linebreak[1]
-Have you met your objectives? If not, why not? \linebreak[1]
-Suggestions for future extensions \linebreak[1]
-Alternatives methodologies might lead to a better system
+
+
+The key objectives for this project have been met. 
+Though, complete oversight of the complexities of some of the components, coupled with poor project management, has resulted in a simplified version of the original proposal. 
+The system does maintain confidentiality of information, to abide by the previously discussed requirements such as the GDPR \cite{noauthor_general_nodate}.
+Personally identifiable information, stored in the database, has been hashed first and all necessary references and comparisons to this information utilise the hash instead of the plaintext data. 
+
+Even though there is additional functionality missing, the project has completed what it set out to achieve. 
+The system designed and implemented in this paper may be simple but it meets all the requirements for the basis of a Distributed-Immunisation-Information-System.
+
+A key feature which was discarded, due to improper planning for development, is an avenue for patients to report adverse effects of their immunisations. 
+Litarature such as \cite{european_centre_for_disease_prevention_and_control_designing_2018}, made clear the advantages to including this in an immunsiation information system. 
+This feature is crucial to harvesting information for use in data analysis.
+
+Neglegcting important parts of the initial interim report submission, such as the gant chart for planning of design and implementation, has lead to a lack of structure in terms of planning in the project.
+Ensuring proper scheduling for development would have helped the project tremendously. 
+This also could have been avoided if communication with the project supervisor was not completely lacking.
+
+\section{Extensions}
+Unfortunately, due to poor project management and communication, additional features were not implemented or detailed in the report and are instead included in the following text as extensions to the project.
+
+Private data collections were neglegted during implementation, this is a must for any evolution on this system.
+Whilst penetration testing Hyperledger Fabric, \cite{shaw_penetration_2019} found that there is a high severity issue; the potential to guess the content of a Private Data Collection.
+This is achieved using SHA256 as an oracle. To ensure this vulnerability is not available in the system, it is necessary to ensure any private data is salted before being hashed. 
+
+Containersation of a Hyperledger Fabric network is an important extension, to utilise the containerised web application. 
+
+Adverse report avenues via mobile application, or similar, should be implemented as an extension. 
+
+Currently, medical data has the HL7 standard as a data exchange format, but the exchange of medical records between countries is not widespread \cite{kung_personal_2020}.
+FHIR, the current standards for the sharing of healthcare information should be implemented in this system \cite{noauthor_overview_nodate}. 
+This would provide a simple format of data, for organisations joining the network, that health authorities are already familiar with. 
+
+Deploying a production scale network and application, using Blockchain-as-a-Service (BaaS) platforms is left as an extension. 
+To ensure all organisations can setup the necessary infrastructure, it would be most simple to use a BaaS platform.
+IBM Blockchain Platform has excellent documentation and provides code patterns for a range of different tasks such as performance analytics. \footnote{https://developer.ibm.com/patterns/use-db2-and-sql-to-perform-analytics-on-blockchain-transactions/}
+
+Implementing Zero Knowledge Proofs (ZKP) would be left as an extension, as the complexity of this feature was overlooked early on. 
+The reason for this is that Fabric uses Idemix \footnote{https://www.cise.ufl.edu/~nemo/anonymity/papers/idemix.pdf}, but the technology supports only a limited amount of attributes. 
+So implementation would take a considerable amount of time to get right using this. 
+Otherwise, there are technologies that can facilitate ZKP with some customisation such as Hyperledger Indy \footnote{https://www.hyperledger.org/blog/2019/04/25/research-paper-validating-confidential-blockchain-transactions-with-zero-knowledge-proof}.
+
+Digital signatures should have been detailed and implemented. Using the NIST Special Publication "Randomized Hashing Digital Signatures". 
+This documents the basic randomization technique for use with digital signatures, which should have been included in the report. \footnote{http://csrc.nist.gov/publications/drafts/Draft-SP-800-106/Draft-SP800-106.pdf} 

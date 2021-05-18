@@ -1,22 +1,17 @@
-(a) Motivation of the project \linebreak[1]
-(b) Aims of the project, ideal place first paragraph \linebreak[1]
-(c) Structure of the report 
-
-\section{old intro}
 Inspired by the ideas of using blockchain to benefit society
-through decentralised applications in [5], this project seeks to
+through decentralised applications in \cite{huckle_internet_2016}, this project seeks to
 design and develop a distributed solution to aid current
-immunisation information systems. As mentioned in [6],
+immunisation information systems. As mentioned in \cite{world_health_organization_better_immunization_information_systemspdf_2013},
 current implementations of IISs, especially that in developing
 countries, are lacking in terms of technological proficiency.
-As stated in [7], IISs are centralised repositories of personally
+As stated in \cite{noauthor_digital_nodate}, IISs are centralised repositories of personally
 identifiable vaccination information for individual members of
 a served population. This project aims to produce a
 decentralised version of an IIS, utilising Decentralised Ledger Technology (DLT) 
 which has been highly discussed since the wide adoption of blockchain technology introduced by \cite{nakamoto_bitcoin_2019} - As discussed in \cite{sunyaev_distributed_2020}.
-From research such as [9] and [10], we know that blockchain provides the
+From research such as \cite{elisa_framework_2018} and \cite{tanwar_blockchain_based_2020}, it is believed that blockchain provides the
 required security and privacy necessary for implementing
-these types of systems. [10] states that blockchain technology
+these types of systems. \cite{tanwar_blockchain_based_2020} states that blockchain technology
 can reform the interoperability of healthcare databases.
 The system this project proposes uses a permissioned
 blockchain, in which the health authorities of different nations
@@ -25,12 +20,12 @@ provide immunisation records of their population to the ledger
 – such data will only be accessible by the health authority that
 provided it as well as the individual the record belongs to.
 This shall be enforced by using asymmetrical cryptography. A
-private key will be required to access these records, the key
+UUID will be required to access these records, the key
 being held by the individual and their relevant health
 authority. This enables the individual’s control over their
 immunisation records along with the ability to provide their
-private key and verify their immunisations. This, as discussed
-in [7], will simplify the processes of vaccination verification
+UUID and verify their immunisations. This, as discussed
+in \cite{noauthor_digital_nodate}, will simplify the processes of vaccination verification
 that may be required in pandemic scenarios, registering for
 school, starting with a new employer, or crossing international
 borders. This system would benefit bodies striving to verify
@@ -39,7 +34,7 @@ This report explores the required components of such a
 system, the professional considerations that are necessary for
 building this system such as legislation and ethical concerns,
 along with the requirements of an IIS and that of one
-implemented using blockchain.
+implemented using blockchain.\linebreak[1]
 
 Forgery and personal data security are dominant concerns of similar projects, but such problems are routinely solved for financial and other sensitive transactions. \cite{dye_covid-19_2021}
 This project attempts to utilise the techniques that achieve this, in other industries, to the vaccination passport problem. % put it in the intro <-------------------------------------------------------------!!!
@@ -57,17 +52,3 @@ The predacessor of smart contracts were the scripts in Bitcoin, introduced in \c
 Smart contracts function as \emph{trusted distributed applications} and gains its security from teh blockchain and the underlying consensus among peers.
 This is similar to the approach of building resilient applications with state-machine replication (SMR) \cite{schneider_implementing_1990}.
 Though, blockchains are different from traditional SMR with Byzantine 
-
-\section{Problem Space, blockchain intro } % get a good title
-
-\subsection{Blockchain architecture cryptography??}
-% where should this cryptology stuff go? Near the start? more detailed part near start, maybe a whole chapter on blockchain inc architecture / use cases? etc 
-Randomized hashing offers the signer additional protection by reducing the likelihood that a preparer can generate two or more messages 
-that ultimately yield the same hash value during the digital signature generation process – even if it is practical to find collisions for the hash function. 
-
-hash functions are formally defined in \cite{rompay_analysis_nodate} as $a function h: D --> R where the domain D = {0,1}*, and the range R = {0,1}^n for smoe n >= 1 $
-using one way hash functions, as defined by Merkle in \cite{merkle_secrecy_1979}, are hash functions
-
-store only hashes, this way data is kept anonymous and GDPR isn't a worry. Also, keeps the private data away from any verifiers etc because all they check against is a hash. % ref for why hashes are irreversible
-
-digital signatures  $<--$ NEW!! NIST Publishes Special Publication 800-106 (Draft) "Randomized Hashing Digital Signatures". that documents our basic randomization technique for use with digital signatures. \url{http://csrc.nist.gov/publications/drafts/Draft-SP-800-106/Draft-SP800-106.pdf}

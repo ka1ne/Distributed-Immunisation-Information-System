@@ -1,0 +1,1 @@
+<input type="text" placeholder="UUID" name="name" <%=records[i].uuid; %>

@@ -1,5 +1,7 @@
 \documentclass{report}
 
+% \usepackage{minted}
+
 \usepackage{graphicx}
 \graphicspath{ {images/} }
 \usepackage{caption}
@@ -23,16 +25,13 @@
 \addbibresource{refs/references.bib}
 \usepackage{hyperref}
 
+
 \title{Distributed Immunisation Information System}
 \author{198860}
 
 \begin{document}
 
 \input{titlepage}
-
-\begin{abstract}
-..
-\end{abstract}
 
 \begin{flushleft}
 
@@ -53,17 +52,23 @@
 \input{chapters/professional-considerations}
 
 \chapter{Body of Report}
-\input{chapters/report}
+\input{chapters/official-report}
 
 \chapter{Conclusion}
 \input{chapters/conclusion}
 
 \printbibliography
 
+\chapter{Appendices}
 \appendix
+\chapter{Project Code}
+\input{chapters/codeappendix}
 \chapter{Hyperledger Fabric}
-\input{chapters/appendix}
-
+\input{chapters/fabappendix}
+\chapter{Development Tools}
+\input{chapters/devappendix}
+\chapter{Logs}
+\input{chapters/logsappendix}
 
 \end{flushleft}
 

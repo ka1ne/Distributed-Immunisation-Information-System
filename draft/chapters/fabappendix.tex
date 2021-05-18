@@ -1,0 +1,43 @@
+\section{Test network} Used for initial testing of chaincode, available on GitHub \footnote{https://github.com/hyperledger/fabric-samples/tree/main/test-network} \label{appendix:testnet}
+
+\section{Fabric version}
+Version 2.3.2 of Fabric is, at the time of writing, the latest release, bringing many improvements which are detailed in the release notes. \footnote{https://github.com/hyperledger/fabric/releases/tag/v2.3.2} \label{appendix:version}
+
+\section{Test Application} 
+Used for initial testing and development of chaincode to application communication and vice versa, available on GitHub. \footnote{https://github.com/hyperledger/fabric-samples/tree/main/test-application} \label{appendix:testapp}
+\subsection{Utils}
+Provided with the test application, two utility files: \lstinline{AppUtil.js} and \lstinline{CAUtil.js} have been used in the application to handle building connection profiles, wallets, CA clients and the functionality that goes with the clients; enrolling admins and registering as well as enrolling users. \footnote{https://github.com/hyperledger/fabric-samples/tree/main/test-application/javascript} \label{appendix:utils}
+
+\section{fabric-network Node.js SDK}
+A package that encapsulates the APIs required when connecting to a Fabric network, submitting transactions, performing queries against the ledger, and listening for or replaying events. \footnote{https://www.npmjs.com/package/fabric-network} \label{appendix:nodesdk}
+
+\subsubsection{fabric-network.Wallets}
+A factory for creating wallets backed by default store implementations. \footnote{https://hyperledger.github.io/fabric-sdk-node/release-2.2/module-fabric-network.Wallets.html} \label{appendix:fabnetwallets}
+
+\subsubsection{fabric-network.Gateway}
+A package that manages network interactions on behalf of an application. A connection profile is provided as a parameter, in this case as a label matching an identity within the wallet supplied as an option \ref{appendix:fabnetwallet}. \footnote{https://hyperledger.github.io/fabric-sdk-node/release-2.2/module-fabric-network.Gateway.html} \label{appendix:fabnetgate}
+
+\subsubsection{fabric-network.Wallet}
+A package to store information for use when connecting to a Gateway. The wallet utilises a store which handles persisitence of identity information. \ref{appendix:fabnetwalletstore}\footnote{https://hyperledger.github.io/fabric-sdk-node/release-2.2/module-fabric-network.Wallet.html} \label{appendix:fabnetwallet}
+
+\subsubsection{fabric-network.WalletStore}
+Interface for store implementations that provide backing storage for identities in a Wallet. \footnote{https://hyperledger.github.io/fabric-sdk-node/release-2.2/module-fabric-network.WalletStore.html} \label{appendix:fabnetwalletstore}
+
+\section{Node.js fabric-ca-client}
+A package that encapsulates the APIs to interact with the Fabric CA. Used to manage the certificates lifecycle of registering, enrolling, renewing and revoking. \footnote{https://www.npmjs.com/package/fabric-ca-client} \label{appendix:nodeca}
+
+\section{Node.js fabric-common}
+A package that encapsulates common code used by the 'fabric-ca-client' and 'fabric-network' packages. \footnote{https://www.npmjs.com/package/fabric-common} \label{appendix:fabcommon}
+
+\section{Node.js fabric-protos}
+A package that encapsulates the Protocol Buffer files and generated JavaScript classes for Fabric. \footnote{https://www.npmjs.com/package/fabric-protos} \label{appendix:fabprotos}
+
+\section{Fabric's Performance Traffic Engine - PTE}
+A tool that uses SDKs to interact with Fabric networks by sending requests and receiving responses to see how a network performs. \footnote{https://github.com/hyperledger/fabric-test/tree/main/tools/PTE} \label{appendix:pte}
+
+\section{Configtx.yaml}
+Configuration for the network, adapted from the sample provided in the documentation for Hyperledger Fabric. \footnote{https://github.com/hyperledger/fabric-samples/blob/main/test-network/configtx/configtx.yaml} \label{appendix:configtx}
+
+\begin{lstlisting}
+
+\end{lstlisting}
