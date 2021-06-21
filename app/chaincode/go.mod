@@ -10,7 +10,9 @@ require (
 	github.com/hyperledger/fabric-chaincode-go v0.0.0-20210319203922-6b661064d4d9 // indirect
 	github.com/hyperledger/fabric-contract-api-go v1.1.1
 	github.com/hyperledger/fabric-protos-go v0.0.0-20210505131505-0ac7fd605762 // indirect
+	github.com/joefitzgerald/rainbow-reporter v0.1.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/maxbrunsfeld/counterfeiter/v6 v6.4.1 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/xeipuuv/gojsonpointer v0.0.0-20190905194746-02993c407bfb // indirect
 	golang.org/x/net v0.0.0-20210510120150-4163338589ed // indirect
