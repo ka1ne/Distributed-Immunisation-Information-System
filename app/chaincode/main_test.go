@@ -5,8 +5,7 @@ import (
 
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	//"github.com/ka1ne/fabric-samples/asset-transfer-basic/chaincode-go/chaincode/mocks"
-	//"github.com/ka1ne/Distributed-Immunisation-Information-System/app/chaincode/mocks"
+	"github.com/ka1ne/Distributed-Immunisation-Information-System/app/chaincode/mocks"
 	//"github.com/ka1ne/fabric-samples/token-utxo/chaincode-go/chaincode"
 	//"github.com/stretchr/testify/require"
 )
@@ -29,11 +28,10 @@ type stateQueryIterator interface {
 }
 
 func TestInitLedger(t *testing.T) {
-	/*
-		chaincodeStub := &mocks.ChaincodeStub{}
-		transactionContext := &mocks.TransactionContext{}
-		transactionContext.GetStubReturns(chaincodeStub)
-	*/
+
+	chaincodeStub := &mocks.ChaincodeStub{}
+	transactionContext := &mocks.TransactionContext{}
+	transactionContext.GetStubReturns(chaincodeStub)
 
 	//assetTransfer := chaincode.SmartContract{}
 	//err := assetTransfer.InitLedger(transactionContext)
